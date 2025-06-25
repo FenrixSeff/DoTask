@@ -1,0 +1,29 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+echo -e "\nMemindahkan file ke ~/.local/bin/..."
+
+mkdir -p ~/.local/bin
+cp ~/DoTask/dotask.py ~/.local/bin/dotask
+chmod +x ~/.local/bin/dotask
+
+SHELL_NAME=$(basename "$SHELL")
+
+if [ "$SHELL_NAME" = "zsh" ]; then
+    RC_FILE="$HOME/.zshrc"
+elif [ "$SHELL_NAME" = "bash" ]; then
+    RC_FILE="$HOME/.bashrc"
+else
+    echo "Shell tidak dikenali, default ke .profile"
+    RC_FILE="$HOME/.profile"
+fi
+
+LINE='export PATH="$HOME/.local/bin:$PATH"'
+if ! grep -Fxq "$LINE" "$RC_FILE"; then
+    echo "$LINE" >> "$RC_FILE"
+    echo "PATH ditambahkan ke $RC_FILE"
+else
+    echo "PATH sudah ada di $RC_FILE"
+fi
+
+echo "Selesai. Restart shell atau jalankan: source $RC_FILE"
+echo -e '\nKetik "dotask" untuk mengakses to-do-list dimana saja'

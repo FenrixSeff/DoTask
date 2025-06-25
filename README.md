@@ -11,41 +11,39 @@
 - Edit or delete specific tasks
 - Data is automatically saved in a `.json` file under your home directory
 
----
 
 ##  Requirements
 - Python 3
 
----
-
 ## How to Install
 ```bash
 pkg install git
-
 gitclone https://github.com/FenrixSeff/DoTask.git
 ```
 ## How to Run
+First go to the DoTask folder.
 ```bash
 cd DoTask
-
-python dotask.py
 ```
 
-Choose an option and manage your task list easily.
+Then do the preparation by running the command below.
+```bash
+./setup
+```
+
+Yes, that's it, now you can use DoTask anywhere, just by typing `dotask` in your terminal, Choose an option and manage your task list easily.
 
 
----
 
 ## Storage Location
 
 Data is stored in:
 
-~/.dotask_notes.json
+  - `~/.dotask_notes.json`
 
 Automatically created on first run.
 
 
----
 
 ## Notes
 
@@ -54,14 +52,10 @@ This script is still in early development
 Features may change or expand
 
 
----
-
 ## Author
 
 Created by Fenrix
 
-
----
 
 ## License
 
