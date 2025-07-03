@@ -1,62 +1,124 @@
 # DoTask
 
-**DoTask** is a simple Python CLI tool to manage a personal to-do list directly from the terminal. Lightweight, practical, and fully functional on Termux or Unix-based terminals.
+**DoTask** is a simple Python CLI tool to manage personal to-do lists. Works on Termux and Unix-based terminals.
+
+**DoTask** adalah alat CLI Python sederhana untuk mengelola daftar tugas. Berfungsi di Termux dan terminal berbasis Unix.
 
 ---
 
-##  Features
-- Add new tasks with custom status
-- View all current tasks
-- Mark tasks as finished
-- Edit or delete specific tasks
-- Data is automatically saved in a `.json` file under your home directory
+## Features | Fitur
+-  Add tasks with custom status
+-  View all tasks
+-  Mark tasks as finished
+-  Edit/delete tasks
+-  Automatic JSON storage
 
+-  Tambah tugas dengan status kustom
+-  Lihat semua tugas
+-  Tandai tugas selesai
+-  Edit/hapus tugas
+-  Penyimpanan otomatis format JSON
 
-##  Requirements
+---
+
+## Requirements | Persyaratan
 - Python 3
 
-## How to Install
+## Installation | Instalasi
 ```bash
-pkg install git
-gitclone https://github.com/FenrixSeff/DoTask.git
-```
-## How to Run
-First go to the DoTask folder.
-```bash
+pkg install git python
+git clone https://github.com/FenrixSeff/DoTask.git
 cd DoTask
-```
-
-Then do the preparation by running the command below.
-```bash
 ./setup
 ```
 
-Yes, that's it, now you can use DoTask anywhere, just by typing `dotask` in your terminal, Choose an option and manage your task list easily.
+## Command-Line Usage | Penggunaan CLI
+```bash
+# Add task
+dotask --add --name "Tidoo" --stat "8 jam/hari" -y
 
+# Mark task as finished (no.3)
+dotask --finished 3 -y
 
+# Edit task (no.2)
+dotask --change 2 --name "Nonton Nartoooo" --stat "epsd 391" -y
 
-## Storage Location
+# Find tasks
+dotask --find "RRQ Samsudin"
 
-Data is stored in:
+# Delete task (no.4)
+dotask --delete 4 -y
 
-  - `~/.dotask_notes.json`
+# Show all tasks
+dotask --show
 
-Automatically created on first run.
+# Restore deleted tasks (by date)
+dotask --undo "03/07/25"
+```
 
+## Interactive Mode | Mode Interaktif
+Just run `dotask` without arguments:
+```bash
+dotask
+```
+Then select options from the menu:
+```
+[1] Show tasks
+[2] Add task
+[3] Edit task
+[4] Delete task
+[0] Exit
+```
 
+## Argparse Tutorial | Panduan Argparse
+DoTask uses Python's argparse module for CLI. Key patterns:
 
-## Notes
+**1. Mutually Exclusive Commands**
+Commands that can't be used together:
+```python
+group = parser.add_mutually_exclusive_group()
+group.add_argument("--add", action="store_true")
+group.add_argument("--delete", type=int)
+```
 
-This script is still in early development
+**2. Argument Types**
+Specify data types for arguments:
+```python
+parser.add_argument("--name", type=str)
+parser.add_argument("--finished", type=int)
+```
 
-Features may change or expand
+**3. Optional Flags**
+Flags without values:
+```python
+parser.add_argument("-y", "--yes", action="store_true")
+```
 
+**4. Help Messages**
+Add descriptions for arguments:
+```python
+parser.add_argument("--find", help="Search tasks by name")
+```
 
-## Author
+**5. Positional vs Optional**
+- Positional: `dotask show` (no prefix)
+- Optional: `dotask --delete 3` (with -- prefix)
 
-Created by Fenrix
+---
 
+## Storage | Penyimpanan
+- Active tasks: `~/.dotask_notes.json`
+- Deleted tasks: `~/.dotask_trash.json`
 
-## License
+- Tugas aktif: `~/.dotask_notes.json`
+- Tugas terhapus: `~/.dotask_trash.json`
 
-Open-source and free to use or modify.
+## Notes | Catatan
+Early development stage - fitur mungkin berubah
+Tahap pengembangan awal - fitur mungkin berubah
+
+---
+
+## Author | Penulis
+Fenrix
+**License**: Open-source (free to use/modify)
